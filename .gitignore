@@ -117,6 +117,9 @@ mvnw
 mvnw.cmd
 .mvn/
 
+### Skill 工具临时目录（如 baibao 命令运行时产物）###
+.baibao
+
 
 
 

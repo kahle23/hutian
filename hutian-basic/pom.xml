@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.kahle23</groupId>
+        <artifactId>hutian</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>hutian-basic</artifactId>
+    <packaging>jar</packaging>
+    <name>hutian-basic</name>
+    <description>洞天 - 基础服务域：操作日志 / 数据变动日志 / 运行日志 / 异步处理任务.</description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-base</artifactId>
+        </dependency>
+
+        <!-- Result 上的 ExcelProperty 导出注解 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

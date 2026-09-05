@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hutian.basic.mapper.OpLogMapper">
+
+    <resultMap id="BaseResultMap" type="hutian.basic.pojo.entity.OpLog">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="time" property="time"/>
+        <result column="message" property="message"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_type" property="userType"/>
+        <result column="user_display_name" property="userDisplayName"/>
+        <result column="org_id" property="orgId"/>
+        <result column="org_name" property="orgName"/>
+        <result column="platform" property="platform"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="trace_id" property="traceId"/>
+        <result column="request_api_uri" property="requestApiUri"/>
+        <result column="request_method" property="requestMethod"/>
+        <result column="input" property="input"/>
+        <result column="output" property="output"/>
+        <result column="success" property="success"/>
+        <result column="error" property="error"/>
+        <result column="time_spent" property="timeSpent"/>
+        <result column="client_app_id" property="clientAppId"/>
+        <result column="client_device_id" property="clientDeviceId"/>
+        <result column="client_user_agent" property="clientUserAgent"/>
+        <result column="client_net_address" property="clientNetAddress"/>
+        <result column="client_geo_address" property="clientGeoAddress"/>
+        <result column="client_geo_location" property="clientGeoLocation"/>
+        <result column="server_name" property="serverName"/>
+        <result column="server_app_name" property="serverAppName"/>
+        <result column="data_json" property="dataJson"/>
+        <result column="delete_status" property="deleteStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `name`,
+        `time`,
+        `message`,
+        `user_id`,
+        `user_type`,
+        `user_display_name`,
+        `org_id`,
+        `org_name`,
+        `platform`,
+        `tenant_id`,
+        `trace_id`,
+        `request_api_uri`,
+        `request_method`,
+        `input`,
+        `output`,
+        `success`,
+        `error`,
+        `time_spent`,
+        `client_app_id`,
+        `client_device_id`,
+        `client_user_agent`,
+        `client_net_address`,
+        `client_geo_address`,
+        `client_geo_location`,
+        `server_name`,
+        `server_app_name`,
+        `data_json`,
+        `delete_status`
+    </sql>
+
+</mapper>

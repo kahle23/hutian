@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rds.e8.ink:3306/hutian_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT&nullCatalogMeansCurrent=true
+    username: dev
+    password: "#xfB97Ytw56unCdasPm#"
+
+logging:
+  home: ./logs
+  level:
+    root: info
+
+# kunlun 多级缓存：本项目不引入 Redis，仅使用本地 simple 级缓存
+kunlun:
+  cache:
+    enabled: true
+    simple:
+      - name: "simple-5m"
+        reference-type: soft
+        time-to-live: 5
+        time-to-live-unit: minutes
+      - name: "simple-30m"
+        reference-type: soft
+        time-to-live: 30
+        time-to-live-unit: minutes
+      - name: "simple-2h"
+        reference-type: soft
+        time-to-live: 2
+        time-to-live-unit: hours

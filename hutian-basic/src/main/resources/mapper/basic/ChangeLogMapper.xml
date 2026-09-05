@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hutian.basic.mapper.ChangeLogMapper">
+
+    <resultMap id="BaseResultMap" type="hutian.basic.pojo.entity.ChangeLog">
+        <id column="id" property="id"/>
+        <result column="time" property="time"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_type" property="userType"/>
+        <result column="user_display_name" property="userDisplayName"/>
+        <result column="org_id" property="orgId"/>
+        <result column="org_name" property="orgName"/>
+        <result column="platform" property="platform"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="business_id" property="businessId"/>
+        <result column="business_type" property="businessType"/>
+        <result column="message" property="message"/>
+        <result column="server_name" property="serverName"/>
+        <result column="server_app_name" property="serverAppName"/>
+        <result column="data_json" property="dataJson"/>
+        <result column="delete_status" property="deleteStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `time`,
+        `user_id`,
+        `user_type`,
+        `user_display_name`,
+        `org_id`,
+        `org_name`,
+        `platform`,
+        `tenant_id`,
+        `business_id`,
+        `business_type`,
+        `message`,
+        `server_name`,
+        `server_app_name`,
+        `data_json`,
+        `delete_status`
+    </sql>
+
+</mapper>

@@ -1,0 +1,69 @@
+server:
+  port: 1210
+  servlet:
+    session:
+      timeout: 30M
+  tomcat:
+    uri-encoding: utf-8
+    threads:
+      min-spare: 5
+      max: 300
+
+spring:
+  application:
+    name: hutian
+    version: @applicationVersion@
+  profiles:
+    active: @activatedProfile@
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 50MB
+
+# Mybatis-Plus 相关配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      logic-delete-field: deleteStatus
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+
+# kunlun 全局异常接管 + 请求级安全上下文
+# （操作日志/JSON 场景反序列化等框架能力依赖安全上下文，UserService 由 hutian-system 的
+#   SystemUserService 真实提供，RBAC 链路 user→user_role→role→role_menu→menu.permission 生效）
+# access.enabled=true 启用资源访问拦截（SimpleResourceAccessPreHandler），未带有效 token 的请求将被拦截；
+#   登录/健康检查等免登录入口登记在 ignored-urls（与 th-core-server 同口径）
+kunlun:
+  exception:
+    enabled: true
+  context:
+    servlet:
+      enabled: true
+  security:
+    servlet:
+      enabled: true
+      access:
+        enabled: true
+        ignored-urls:
+          - "/system/login"
+          - "/base/ping"
+        # 前端静态资源放行（fat jar 同源托管）：SimpleResourceAccessPreHandler 仅自动放行
+        # .js/.css/.html/.ico 后缀，欢迎页 / 与 /assets/** 下的 woff2/svg/png/json 需显式排除
+        exclude-path-patterns:
+          - "/"
+          - "/index.html"
+          - "/assets/**"
+          - "/favicon.ico"
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info

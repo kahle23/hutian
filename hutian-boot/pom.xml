@@ -1,0 +1,173 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.kahle23</groupId>
+        <artifactId>hutian</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>hutian-boot</artifactId>
+    <packaging>jar</packaging>
+    <name>hutian-boot</name>
+    <description>洞天 - 启动装配：唯一可执行模块（启动类/登录/跨域/健康检查），产出 fat jar.</description>
+
+    <properties>
+        <!-- 前端工程目录（同级仓库 hutian-web），fat jar 打包时自动构建并复制其 dist 产物 -->
+        <frontend.dir>${project.basedir}/../../hutian-web</frontend.dir>
+        <!-- 复用系统 PATH 里的 npm（Windows 由 os-windows profile 覆盖为 npm.cmd） -->
+        <frontend.npm.executable>npm</frontend.npm.executable>
+        <!-- 后端-only 打包时 -DskipFrontendBuild=true 跳过前端构建 -->
+        <skipFrontendBuild>false</skipFrontendBuild>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-base</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-basic</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-system</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 代码生成器（按需手工触发，仅测试类路径） -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>hutian-boot</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- 前端联动自动装配：检测到 ../hutian-web 在场（package.json 存在）时激活，
+             用系统 npm 构建前端并把 dist 复制进 fat jar 的 static 目录；前端仓库不在场时自动跳过 -->
+        <profile>
+            <id>frontend</id>
+            <activation>
+                <!-- 不用 activeByDefault：只要任何其他 profile 激活（如 os-windows），
+                     所有 activeByDefault 的 profile 会集体失效（Maven 经典坑）；
+                     file.exists 单独作为激活条件即可：前端仓库在场即激活 -->
+                <file>
+                    <exists>${frontend.dir}/package.json</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- 复用系统 Node/npm（exec 直调，不额外下载运行时）；
+                         须声明在 maven-resources-plugin 之前：generate-resources 阶段按声明顺序执行 -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <configuration>
+                            <workingDirectory>${frontend.dir}</workingDirectory>
+                            <executable>${frontend.npm.executable}</executable>
+                            <skip>${skipFrontendBuild}</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>frontend-npm-install</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>install</argument>
+                                        <argument>--registry=https://registry.npmmirror.com</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>frontend-npm-build</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>run</argument>
+                                        <argument>build</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-frontend-dist</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${frontend.dir}/dist</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Windows 下 npm 是 npm.cmd，Runtime.exec 不会自动解析裸名 npm -->
+        <profile>
+            <id>os-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <frontend.npm.executable>npm.cmd</frontend.npm.executable>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

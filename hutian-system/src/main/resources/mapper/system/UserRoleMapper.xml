@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hutian.system.mapper.UserRoleMapper">
+
+    <resultMap id="BaseResultMap" type="hutian.system.pojo.entity.UserRole">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="platform" property="platform"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_user" property="modifyUser"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="delete_status" property="deleteStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `user_id`,
+        `role_id`,
+        `platform`,
+        `tenant_id`,
+        `create_user`,
+        `create_time`,
+        `modify_user`,
+        `modify_time`,
+        `delete_status`
+    </sql>
+
+</mapper>
