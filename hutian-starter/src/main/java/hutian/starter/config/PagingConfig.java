@@ -1,4 +1,4 @@
-package hutian.base.config;
+package hutian.starter.config;
 
 import baibao.data.paging.support.PageHelperPagingProcessor;
 import baibao.data.paging.support.PageHelperResultProcessor;

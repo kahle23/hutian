@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
-            <artifactId>hutian-base</artifactId>
+            <artifactId>hutian-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -84,9 +84,11 @@
             <activation>
                 <!-- 不用 activeByDefault：只要任何其他 profile 激活（如 os-windows），
                      所有 activeByDefault 的 profile 会集体失效（Maven 经典坑）；
-                     file.exists 单独作为激活条件即可：前端仓库在场即激活 -->
+                     file.exists 单独作为激活条件即可：前端仓库在场即激活。
+                     注意 activation 段插值早于本 POM <properties>，须用内置 ${basedir}
+                     而非自定义 ${frontend.dir}（后者此时尚未就绪，条件永远不成立） -->
                 <file>
-                    <exists>${frontend.dir}/package.json</exists>
+                    <exists>${basedir}/../../hutian-web/package.json</exists>
                 </file>
             </activation>
             <build>

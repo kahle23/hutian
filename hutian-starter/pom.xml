@@ -9,9 +9,9 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>hutian-base</artifactId>
+    <artifactId>hutian-starter</artifactId>
     <packaging>jar</packaging>
-    <name>hutian-base</name>
+    <name>hutian-starter</name>
     <description>洞天 - 技术底座（纯库，无应用逻辑）：ORM/字段自动填充/分页/安全上下文基建，业务模块依赖它获得全部技术栈.</description>
 
     <dependencies>

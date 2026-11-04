@@ -18,7 +18,7 @@
     </parent>
 
     <modules>
-        <module>hutian-base</module>
+        <module>hutian-starter</module>
         <module>hutian-basic</module>
         <module>hutian-system</module>
         <module>hutian-boot</module>
@@ -56,7 +56,7 @@
             <!-- **************** - 自有模块 - **************** -->
             <dependency>
                 <groupId>io.github.kahle23</groupId>
-                <artifactId>hutian-base</artifactId>
+                <artifactId>hutian-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

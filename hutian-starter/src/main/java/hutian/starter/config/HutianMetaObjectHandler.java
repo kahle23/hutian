@@ -1,4 +1,4 @@
-package hutian.base.config;
+package hutian.starter.config;
 
 import kunlun.db.jdbc.mybatisplus.AbstractMetaObjectHandler;
 import org.springframework.beans.factory.annotation.Value;

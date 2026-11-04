@@ -13,7 +13,7 @@ Java 8 + Spring Boot 2.3.2 + MyBatis-Plus(-Join) + baibao/kunlun 的多模块样
 
 | 模块 | 说明 |
 |---|---|
-| hutian-base | 技术底座（纯库，无应用逻辑）：字段自动填充、分页基建、令牌管理器，自带 spring.factories 自动装配（引 jar 即生效）；业务模块依赖它获得全部技术栈 |
+| hutian-starter | 技术底座（纯库，无应用逻辑）：字段自动填充、分页基建、令牌管理器，自带 spring.factories 自动装配（引 jar 即生效）；业务模块依赖它获得全部技术栈 |
 | hutian-basic | 基础服务域（自 baibao-basic-service-plugin 迁移改写）：操作日志 / 数据变动日志 / 运行日志 / 异步处理任务，URL 前缀 `/basic`；自带 spring.factories，可作为 jar 供外部工程引入 |
 | hutian-boot | 应用装配：启动类 / 登录 / 跨域 / 健康检查，唯一可执行模块，产出 fat jar；前端产物复制进 static |
 | sql | 数据库初始化脚本（init.sql 建库建 sys_user，basic.sql 建 base_op_log 等 4 张基础服务表） |

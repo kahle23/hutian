@@ -26,7 +26,7 @@ import static cn.hutool.core.util.StrUtil.isNotBlank;
 /**
  * 洞天安全上下文的用户服务（kunlun UserService 的真实实现）.
  * <p>
- * 取代 hutian-base 的占位 HutianUserService，成为工程内唯一的 UserService bean，
+ * 取代 hutian-starter 的占位 HutianUserService，成为工程内唯一的 UserService bean，
  * 供 kunlun SecurityAutoConfiguration 装配请求级安全上下文（操作日志/权限校验等）使用.
  * RBAC 链路：sys_user_role → sys_role_menu → sys_menu.permission，与 th ThUserService 同口径，
  * 剥离 th 的机构/岗位/临时用户/Redis 等不迁移部分.

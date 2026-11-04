@@ -40,6 +40,10 @@ public class MenuSmpResult implements Serializable {
      */
     private String route;
     /**
+     * 前端组件路径（仅菜单类型，如 system/user/index，对应前端视图文件）
+     */
+    private String component;
+    /**
      * 图标
      */
     private String icon;

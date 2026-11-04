@@ -42,7 +42,7 @@ import static kunlun.security.support.AbstractTokenManager.TokenImpl;
  * <p>
  * 借鉴 th LoginServiceImpl 的 login/logout 主干，剥离验证码/Redis/临时用户/oneOffToken/
  * 测试环境万能密码等不迁移部分. token 由 kunlun SecurityUtil.buildToken 产出（JWT，无状态，
- * TokenManager 由 hutian-base SecurityConfig 注册的 JwtTokenManager 提供，30 天有效期）.
+ * TokenManager 由 hutian-starter SecurityConfig 注册的 JwtTokenManager 提供，30 天有效期）.
  *
  * @author Hutian
  * @since 2026-08-26

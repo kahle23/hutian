@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-hutian.base.config.BaseAutoConfiguration
+hutian.starter.config.HutianStarterAutoConfiguration

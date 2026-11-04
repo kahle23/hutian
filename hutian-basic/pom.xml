@@ -18,7 +18,7 @@
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
-            <artifactId>hutian-base</artifactId>
+            <artifactId>hutian-starter</artifactId>
         </dependency>
 
         <!-- Result 上的 ExcelProperty 导出注解 -->
