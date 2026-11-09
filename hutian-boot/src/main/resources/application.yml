@@ -40,7 +40,7 @@ mybatis-plus:
 # （操作日志/JSON 场景反序列化等框架能力依赖安全上下文，UserService 由 hutian-system 的
 #   SystemUserService 真实提供，RBAC 链路 user→user_role→role→role_menu→menu.permission 生效）
 # access.enabled=true 启用资源访问拦截（SimpleResourceAccessPreHandler），未带有效 token 的请求将被拦截；
-#   登录/健康检查等免登录入口登记在 ignored-urls（与 th-core-server 同口径）
+#   登录/健康检查等免登录入口登记在 ignored-urls
 kunlun:
   exception:
     enabled: true

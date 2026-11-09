@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
  * 完成组件扫描与 Mapper 扫描，引 jar 即生效，无需宿主额外配置；
  * hutian 自身启动类已扫 hutian.*，重复扫描由 Spring 去重，互不影响.
  * <p>
- * 分页处理器、审计字段填充、令牌管理器三样基建由 hutian-starter 的自动装配提供，
- * 宿主依赖 hutian-starter 即就绪，无需自行准备.
+ * 分页处理器、审计字段填充、令牌管理器三样平台基建由宿主工程装配
+ * （hutian 平台 = hutian-boot 统一提供；外部宿主需自行提供等价基建）.
  *
  * @author Hutian
  * @since 2026-08-26

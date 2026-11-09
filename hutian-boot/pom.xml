@@ -5,39 +5,62 @@
 
     <parent>
         <groupId>io.github.kahle23</groupId>
-        <artifactId>hutian</artifactId>
-        <version>1.0.0</version>
+        <artifactId>baibao-spring-boot-standard-parent</artifactId>
+        <version>1.0.3</version>
+        <relativePath/>
     </parent>
 
+    <groupId>io.github.kahle23</groupId>
     <artifactId>hutian-boot</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>hutian-boot</name>
-    <description>洞天 - 启动装配：唯一可执行模块（启动类/登录/跨域/健康检查），产出 fat jar.</description>
+    <description>壶天 - 启动装配：唯一可执行模块（启动类/登录/跨域/健康检查），产出 fat jar.</description>
 
     <properties>
+        <!-- 覆盖父 pom 的 baibao 默认版本：父 pom 的 baibao 是实际依赖（每个模块的直接依赖），
+             不覆盖会被 nearest-wins 解析成父 pom 默认版本，压过经 hutian-common 传递的版本造成静默降级 -->
+        <baibao.version>1.0.29</baibao.version>
+        <!-- 本模块（fat jar 装配者）自身的 dependencyManagement 钉住全图版本：
+             不覆盖会把 easyexcel 钉成父 pom 默认 3.1.1、poi 钉成 5.2.1，
+             压过经 hutian-basic/system/cms 传递的 easyexcel 3.3.4（poi 4.1.2），造成运行时版本漂移 -->
+        <easyexcel.version>3.3.4</easyexcel.version>
+        <poi.version>4.1.2</poi.version>
         <!-- 前端工程目录（同级仓库 hutian-web），fat jar 打包时自动构建并复制其 dist 产物 -->
         <frontend.dir>${project.basedir}/../../hutian-web</frontend.dir>
         <!-- 复用系统 PATH 里的 npm（Windows 由 os-windows profile 覆盖为 npm.cmd） -->
         <frontend.npm.executable>npm</frontend.npm.executable>
         <!-- 后端-only 打包时 -DskipFrontendBuild=true 跳过前端构建 -->
         <skipFrontendBuild>false</skipFrontendBuild>
+        <!-- maven filtering 填充 application.yml 的 @xx@ 占位符（默认 dev，-P test 切换） -->
+        <applicationVersion>${project.version}</applicationVersion>
+        <activatedProfile>dev</activatedProfile>
     </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
-            <artifactId>hutian-starter</artifactId>
+            <artifactId>hutian-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
             <artifactId>hutian-basic</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
             <artifactId>hutian-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-cms</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -72,6 +95,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -168,6 +194,16 @@
             </activation>
             <properties>
                 <frontend.npm.executable>npm.cmd</frontend.npm.executable>
+            </properties>
+        </profile>
+
+        <!-- 切 test 环境：覆盖 @activatedProfile@ 占位符。
+             不用 activeByDefault：本 pom 里 os-windows（Windows 上恒激活）/frontend 等条件 profile
+             一旦激活，activeByDefault 的 profile 会集体失效，@activatedProfile@ 将不被替换 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <activatedProfile>test</activatedProfile>
             </properties>
         </profile>
     </profiles>

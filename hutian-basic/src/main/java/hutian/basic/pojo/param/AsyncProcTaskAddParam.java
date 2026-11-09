@@ -2,7 +2,7 @@ package hutian.basic.pojo.param;
 
 import hutian.basic.enums.AsyncTaskStatus;
 import hutian.basic.enums.AsyncTaskType;
-import kunlun.core.annotation.FieldMeta;
+import kunlun.data.definition.annotation.FieldMeta;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

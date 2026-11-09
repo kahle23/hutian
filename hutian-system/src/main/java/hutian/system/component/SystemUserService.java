@@ -24,14 +24,14 @@ import java.util.Set;
 import static cn.hutool.core.util.StrUtil.isNotBlank;
 
 /**
- * 洞天安全上下文的用户服务（kunlun UserService 的真实实现）.
+ * 壶天安全上下文的用户服务（kunlun UserService 的真实实现）.
  * <p>
- * 取代 hutian-starter 的占位 HutianUserService，成为工程内唯一的 UserService bean，
+ * 工程内唯一的 UserService bean，
  * 供 kunlun SecurityAutoConfiguration 装配请求级安全上下文（操作日志/权限校验等）使用.
- * RBAC 链路：sys_user_role → sys_role_menu → sys_menu.permission，与 th ThUserService 同口径，
- * 剥离 th 的机构/岗位/临时用户/Redis 等不迁移部分.
+ * RBAC 链路：sys_user_role → sys_role_menu → sys_menu.permission；
+ * 不含机构/岗位/临时用户/Redis 等多组织与企业附加概念，保持精简.
  * <p>
- * 用户类型固定 0=普通用户（洞天不区分用户类型），无机构概念，getUserGroups 一律返回空.
+ * 用户类型固定 0=普通用户（壶天不区分用户类型），无机构概念，getUserGroups 一律返回空.
  *
  * @author Hutian
  * @since 2026-08-26
@@ -41,13 +41,13 @@ import static cn.hutool.core.util.StrUtil.isNotBlank;
 public class SystemUserService implements kunlun.security.UserService {
 
     /**
-     * 普通用户类型：洞天不区分用户类型，统一用 0
+     * 普通用户类型：壶天不区分用户类型，统一用 0
      */
     private static final long USER_TYPE_NORMAL = 0L;
 
     /**
      * 查询用户权限标识的 SQL（RBAC 链路：user_role → role_menu → menu.permission）.
-     * 与 th ThUserService.getPermissions 同口径，表名/字段名与 hutian sys_* 表一致；
+     * 表名/字段名与 hutian sys_* 表一致；
      * 逻辑删除与启用状态在 SQL 内显式过滤（NamedParameterJdbcTemplate 不走 MyBatis-Plus 全局逻辑删除）.
      */
     private static final String SQL_PERMISSIONS =
@@ -72,7 +72,7 @@ public class SystemUserService implements kunlun.security.UserService {
      * 角色信息不在 UserDetail 范畴内（/system/current/info 接口单独返回 roles）.
      *
      * @param userId   用户ID
-     * @param userType 用户类型（洞天统一 0，入参忽略）
+     * @param userType 用户类型（壶天统一 0，入参忽略）
      * @return 用户详情或 null
      */
     @Override
@@ -90,7 +90,7 @@ public class SystemUserService implements kunlun.security.UserService {
         if (user == null) {
             return null;
         }
-        // 转换为 UserDetail（洞天统一 userType=0）；displayName 取 name，name 为空回退 account
+        // 转换为 UserDetail（壶天统一 userType=0）；displayName 取 name，name 为空回退 account
         AbstractUserService.UserImpl detail = new AbstractUserService.UserImpl();
         detail.setId(user.getId());
         detail.setType(USER_TYPE_NORMAL);
@@ -107,7 +107,7 @@ public class SystemUserService implements kunlun.security.UserService {
      * SQL 内已对 delete_status / enabled 做显式过滤，并对 permission 去重去空.
      *
      * @param userId   用户ID
-     * @param userType 用户类型（洞天统一 0，入参忽略）
+     * @param userType 用户类型（壶天统一 0，入参忽略）
      * @return 权限标识集合（去重，可能为空）
      */
     @Override
@@ -131,7 +131,7 @@ public class SystemUserService implements kunlun.security.UserService {
     /**
      * 查询用户所属用户组.
      * <p>
-     * 洞天无机构/部门概念，一律返回空集合.
+     * 壶天无机构/部门概念，一律返回空集合.
      *
      * @param userId    用户ID
      * @param userType  用户类型
@@ -140,14 +140,14 @@ public class SystemUserService implements kunlun.security.UserService {
      */
     @Override
     public Collection<String> getUserGroups(Object userId, Object userType, Object groupType) {
-        // 洞天无机构概念
+        // 壶天无机构概念
         return Collections.emptyList();
     }
 
     /**
      * 批量查询用户详情.
      * <p>
-     * 简单按 getUserDetail 循环实现（洞天无 th 的机构/岗位数据填充与临时用户分支）.
+     * 简单按 getUserDetail 循环实现（壶天无机构/岗位数据填充与临时用户分支）.
      *
      * @param userIds   用户ID集合
      * @param userType  用户类型
@@ -174,7 +174,7 @@ public class SystemUserService implements kunlun.security.UserService {
     /**
      * 查询用户组信息（按用户组ID）.
      * <p>
-     * 洞天无机构概念，一律返回空集合.
+     * 壶天无机构概念，一律返回空集合.
      *
      * @param groupIds  用户组ID集合
      * @param groupType 用户组类型
@@ -182,7 +182,7 @@ public class SystemUserService implements kunlun.security.UserService {
      */
     @Override
     public Collection<UserGroup> getUserGroups(Collection<?> groupIds, Object groupType) {
-        // 洞天无机构概念
+        // 壶天无机构概念
         return Collections.emptyList();
     }
 

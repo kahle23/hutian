@@ -93,8 +93,8 @@ public class UserRoleServiceImpl extends MPJBaseServiceImpl<UserRoleMapper, User
         // 参数校验，去重
         VerifyUtils.notEmpty(userIds, "用户ID集合不能为空！");
         List<Long> distinctIds = CollUtil.distinct(userIds);
-        // 联 sys_role 查角色（参考 th UserRoleServiceImpl.findRolesByUserIds，
-        //   roleId 映射为 RoleSmpResult.id，逻辑删除自动过滤 delete_status=0 的绑定）
+        // 联 sys_role 查角色（roleId 映射为 RoleSmpResult.id，
+        //   逻辑删除自动过滤 delete_status=0 的绑定）
         return selectJoinList(RoleSmpResult.class, JoinWrappers.lambda(UserRole.class)
                 .selectAs(UserRole::getRoleId, RoleSmpResult::getId)
                 .selectAs(Role::getName, RoleSmpResult::getName)

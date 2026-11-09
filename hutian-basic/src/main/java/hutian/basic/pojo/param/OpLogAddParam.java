@@ -1,7 +1,7 @@
 package hutian.basic.pojo.param;
 
-import kunlun.core.annotation.FieldMeta;
 import kunlun.data.Dict;
+import kunlun.data.definition.annotation.FieldMeta;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.kahle23</groupId>
+        <artifactId>baibao-spring-boot-standard-parent</artifactId>
+        <version>1.0.3</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.github.kahle23</groupId>
+    <artifactId>hutian-common</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>hutian-common</name>
+    <description>壶天 - 公共依赖收敛（哑 jar）：统一技术栈与版本，无任何自动装配与全局行为；平台基建（分页/审计填充/令牌管理器）由宿主工程装配。</description>
+
+    <properties>
+        <!-- 覆盖父 pom 的 baibao 默认版本：父 pom 的 baibao 是实际依赖（每个模块的直接依赖），
+             不覆盖会被 nearest-wins 解析成父 pom 默认版本，压过经本模块传递的版本造成静默降级 -->
+        <baibao.version>1.0.29</baibao.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- **************** - ORM 技术栈补充（baibao/mybatis 三件/mybatis-plus 两 starter 已由父 pom 继承） - **************** -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- **************** - 数据库 - **************** -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- **************** - 常用依赖（版本对齐 baibao 体系） - **************** -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

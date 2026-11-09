@@ -17,7 +17,7 @@ import hutian.system.service.UserRoleService;
 import kunlun.action.ActionUtil;
 import kunlun.common.constant.Nil;
 import kunlun.crypto.CryptoUtil;
-import kunlun.event.model.Event;
+import kunlun.data.Event;
 import kunlun.exception.ExceptionUtil;
 import kunlun.security.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,9 +40,9 @@ import static kunlun.security.support.AbstractTokenManager.TokenImpl;
 /**
  * 系统登录的服务实现类.
  * <p>
- * 借鉴 th LoginServiceImpl 的 login/logout 主干，剥离验证码/Redis/临时用户/oneOffToken/
- * 测试环境万能密码等不迁移部分. token 由 kunlun SecurityUtil.buildToken 产出（JWT，无状态，
- * TokenManager 由 hutian-starter SecurityConfig 注册的 JwtTokenManager 提供，30 天有效期）.
+ * login/logout 主干保持精简：不含验证码/Redis/临时用户/oneOffToken/
+ * 测试环境万能密码等附加机制. token 由 kunlun SecurityUtil.buildToken 产出（JWT，无状态，
+ * TokenManager 由 hutian-boot HutianInfraConfig 注册的 JwtTokenManager 提供，30 天有效期）.
  *
  * @author Hutian
  * @since 2026-08-26
@@ -52,7 +52,7 @@ import static kunlun.security.support.AbstractTokenManager.TokenImpl;
 public class LoginServiceImpl implements LoginService {
 
     /**
-     * 普通用户类型：洞天不区分用户类型，统一用 0
+     * 普通用户类型：壶天不区分用户类型，统一用 0
      */
     private static final long USER_TYPE_NORMAL = 0L;
 
@@ -112,7 +112,7 @@ public class LoginServiceImpl implements LoginService {
         // 用户是否启用
         notNull(user.getId(), "用户ID不能为空！");
         notBlank(user.getPassword(), "用户账号未设置密码！");
-        // 账号被禁用可以明示（与 th 同口径）
+        // 账号被禁用可以明示
         if (user.getEnabled() == null || user.getEnabled() != ONE) {
             throw new IllegalArgumentException("用户账号已被禁用！");
         }

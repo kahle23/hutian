@@ -1,8 +1,8 @@
 # hutian-system
 
-洞天系统域模块（用户/角色/菜单/权限/登录），仿 `hutian-basic` 的五件套分层与代码风格重写，
-参考 `th-core-server` 的 `taihong.coreserv.system` 包主干，剥离机构/岗位/数据权限/验证码/Redis/
-临时用户/二维码等历史包袱，是干净版的 RBAC 系统域。
+壶天系统域模块（用户/角色/菜单/权限/登录），仿 `hutian-basic` 的五件套分层与代码风格实现，
+是干净版的 RBAC 系统域：仅保留用户/角色/菜单/授权/登录主干，不含机构/岗位/数据权限/
+验证码/Redis/临时用户/二维码等多组织与企业附加概念。
 
 ## 模块定位
 
@@ -54,5 +54,5 @@
 mvn -s "E:/Repository/Maven/_yunxiao_settings.xml" compile
 ```
 
-裸 `mvn compile` 在本机会因 localRepository 缺 baibao 1.0.27 + JDK 证书过旧失败，
+裸 `mvn compile` 在本机会因 localRepository 缺 baibao 1.0.29 + JDK 证书过旧失败，
 须带 `-s` 指定云效 settings（aliyun 镜像，依赖已缓存），属环境问题非代码问题。

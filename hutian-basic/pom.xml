@@ -5,20 +5,32 @@
 
     <parent>
         <groupId>io.github.kahle23</groupId>
-        <artifactId>hutian</artifactId>
-        <version>1.0.0</version>
+        <artifactId>baibao-spring-boot-standard-parent</artifactId>
+        <version>1.0.3</version>
+        <relativePath/>
     </parent>
 
+    <groupId>io.github.kahle23</groupId>
     <artifactId>hutian-basic</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>hutian-basic</name>
-    <description>洞天 - 基础服务域：操作日志 / 数据变动日志 / 运行日志 / 异步处理任务.</description>
+    <description>壶天 - 基础服务域：操作日志 / 数据变动日志 / 运行日志 / 异步处理任务.</description>
+
+    <properties>
+        <!-- 覆盖父 pom 的 baibao 默认版本：父 pom 的 baibao 是实际依赖（每个模块的直接依赖），
+             不覆盖会被 nearest-wins 解析成父 pom 默认版本，压过经 hutian-common 传递的版本造成静默降级 -->
+        <baibao.version>1.0.29</baibao.version>
+        <!-- 覆盖父 pom 默认的 easyexcel 3.1.1 -->
+        <easyexcel.version>3.3.4</easyexcel.version>
+    </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>io.github.kahle23</groupId>
-            <artifactId>hutian-starter</artifactId>
+            <artifactId>hutian-common</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Result 上的 ExcelProperty 导出注解 -->

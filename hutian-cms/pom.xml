@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.kahle23</groupId>
+        <artifactId>baibao-spring-boot-standard-parent</artifactId>
+        <version>1.0.3</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.github.kahle23</groupId>
+    <artifactId>hutian-cms</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>hutian-cms</name>
+    <description>壶天 - 内容服务域：内容/公告（文章 CRUD、分类、留痕、门户已读未读、定时上下线）.</description>
+
+    <properties>
+        <!-- 覆盖父 pom 的 baibao 默认版本：父 pom 的 baibao 是实际依赖（每个模块的直接依赖），
+             不覆盖会被 nearest-wins 解析成父 pom 默认版本，压过经 hutian-common 传递的版本造成静默降级 -->
+        <baibao.version>1.0.29</baibao.version>
+        <!-- 覆盖父 pom 默认的 easyexcel 3.1.1 -->
+        <easyexcel.version>3.3.4</easyexcel.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>io.github.kahle23</groupId>
+            <artifactId>hutian-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Result 上的 ExcelProperty 导出注解（与 hutian-basic 同口径预留） -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

@@ -1,6 +1,6 @@
 package hutian.system.pojo.param;
 
-import kunlun.core.annotation.FieldMeta;
+import kunlun.data.definition.annotation.FieldMeta;
 import kunlun.data.json.support.jackson.annotation.JsonSceneDeserialize;
 import kunlun.data.json.support.jackson.model.Scene;
 import lombok.Data;

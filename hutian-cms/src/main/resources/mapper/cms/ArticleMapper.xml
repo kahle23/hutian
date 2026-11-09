@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hutian.cms.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="hutian.cms.pojo.entity.Article">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="title" property="title"/>
+        <result column="cover_images" property="coverImages"/>
+        <result column="summary" property="summary"/>
+        <result column="top_weight" property="topWeight"/>
+        <result column="content_type" property="contentType"/>
+        <result column="content" property="content"/>
+        <result column="attachments" property="attachments"/>
+        <result column="status" property="status"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="publish_user" property="publishUser"/>
+        <result column="expire_time" property="expireTime"/>
+        <result column="view_count" property="viewCount"/>
+        <result column="platform" property="platform"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modify_user" property="modifyUser"/>
+        <result column="modify_time" property="modifyTime"/>
+        <result column="delete_status" property="deleteStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `type`,
+        `category_id`,
+        `title`,
+        `cover_images`,
+        `summary`,
+        `top_weight`,
+        `content_type`,
+        `content`,
+        `attachments`,
+        `status`,
+        `publish_time`,
+        `publish_user`,
+        `expire_time`,
+        `view_count`,
+        `platform`,
+        `tenant_id`,
+        `create_user`,
+        `create_time`,
+        `modify_user`,
+        `modify_time`,
+        `delete_status`
+    </sql>
+
+</mapper>
